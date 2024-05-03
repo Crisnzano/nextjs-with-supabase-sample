@@ -1,5 +1,8 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import { Inter as FontSans } from "next/font/google"
+ 
+import { cn } from "@/lib/utils"
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -26,3 +29,4 @@ export default function RootLayout({
     </html>
   );
 }
+
