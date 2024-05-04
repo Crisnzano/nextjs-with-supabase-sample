@@ -29,7 +29,7 @@ function AddDialog({task, setTask}: {task:string, setTask: React.Dispatch<React.
   return (
     <Dialog>
     <DialogTrigger asChild>
-        <Button style={{ marginLeft: "2px" }}>Add</Button>
+        <Button className="bg-green-500 "style={{ marginLeft: "2px" }}>Add</Button>
     </DialogTrigger>
     <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -54,7 +54,7 @@ function AddDialog({task, setTask}: {task:string, setTask: React.Dispatch<React.
             </div>
         </div>
         <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button className="bg-green-500 "type="submit">Save changes</Button>
         </DialogFooter>
         </form>
     </DialogContent>

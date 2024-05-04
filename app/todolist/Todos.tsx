@@ -24,7 +24,6 @@ function Todos({todos}: Props) {
         .from('ToDo_list')
         .delete().eq("id", id)
 
-        console.log("so,ething", error)
     }
 
     
