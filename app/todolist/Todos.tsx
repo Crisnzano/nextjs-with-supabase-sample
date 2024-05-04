@@ -22,12 +22,12 @@ function Todos({ todos }: Props) {
   const [task, setTask] = useState<string>("");
   const supabase = createClient();
 
-  async function edit(id: number, task: string) {
-    const { error } = await supabase
-      .from("ToDo_list")
-      .update({ task_todo: task })
-      .eq("id", id);
-  }
+//   async function edit(id: number, task: string) {
+//     const { error } = await supabase
+//       .from("ToDo_list")
+//       .update({ task_todo: task })
+//       .eq("id", id);
+//   }
 
   async function remove(id: number) {
     const { error } = await supabase.from("ToDo_list").delete().eq("id", id);
@@ -44,6 +44,8 @@ function Todos({ todos }: Props) {
             <TableHead>Task</TableHead>
             <TableHead>StartDate </TableHead>
             <TableHead>EndDate</TableHead>
+            <TableHead>Priority</TableHead>
+            <TableHead>Done</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
@@ -54,8 +56,10 @@ function Todos({ todos }: Props) {
               <TableCell>{todo.task_todo}</TableCell>
               <TableCell>{todo.start_date}</TableCell>
               <TableCell>{todo.end_date}</TableCell>
+              <TableCell>{todo.priority}</TableCell>
+              <TableCell>{todo.is_done ? "done": "not"}</TableCell>
               <TableCell>
-                <ToDoEdit task={task} onTaskUpdated={setTask} />
+                <ToDoEdit todo={todo} />
 
                 <Button className="bg-red-500" onClick={() => remove(todo.id)}>
                   Delete

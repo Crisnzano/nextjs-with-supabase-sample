@@ -1,5 +1,73 @@
-
 "use client";
+
+import { useState, useEffect } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+
+const supabase = createClient();
+
+export function ToDoEdit({todo}: {todo: any}) {
+  const [title, setTitle] = useState(todo.task_todo);
+  const [priority, setPriority] = useState(todo.priority);
+  const [done, setDone] = useState(todo.is_done);
+
+  const handleEdit = async () => {
+    const { error } = await supabase
+      .from("ToDo_list")
+      .update({ priority, is_done: done })
+      .eq("id", todo.id);
+
+    if (error) {
+      console.error("Error updating record:", error.message);
+    } else {
+      console.log("Record updated successfully!");
+      // Optionally update the parent state
+    //   setTaskState({ id, title, priority, done });
+    }
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="bg-green-500">Edit</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <div style={{ marginBottom: "20px" }}>
+          <label>Title: {title ?? "NO title"}</label>
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <label>
+            Priority
+            <input
+              style={{ marginLeft: "5px" }}
+              type="number"
+              min="0"
+              max="5"
+              value={priority || 0}
+              onChange={(e) => setPriority(parseInt(e.target.value))}
+            />
+          </label>
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <label>
+            Done
+            <input
+              style={{ marginLeft: "5px" }}
+              type="checkbox"
+              checked={done}
+              onChange={(e) => setDone(e.target.checked)}
+            />
+          </label>
+        </div>
+        <Button className="bg-green-500" onClick={handleEdit}>
+          Save Changes
+        </Button>
+      </DialogContent>
+    </Dialog>
+  );
+}
+/*"use client";
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
@@ -86,4 +154,4 @@ export function ToDoEdit({ task, onTaskUpdated }: { task: any; onTaskUpdated: an
     </Dialog>
   );
 }
-
+*/
